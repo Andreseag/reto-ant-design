@@ -6,8 +6,9 @@ export const useCharacters = () => {
   const [characters, setCharacters] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const PRIVATE_KEY = "3e8fc5211bf0b72ffb80474c48906e8a33bc0746";
-  const PUBLIC_KEY = "ba6056e5af5ad1ad6d198a7646a21268";
+  const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY;
+  const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
+  console.log(PRIVATE_KEY, PUBLIC_KEY);
 
   const fetchCharacters = async () => {
     const ts = new Date().getTime();
