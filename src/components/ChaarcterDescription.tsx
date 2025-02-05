@@ -1,8 +1,4 @@
-import Swal from "sweetalert2";
-import React, { useEffect } from "react";
 import { Modal } from "antd";
-import md5 from "crypto-js/md5";
-import { Character } from "../types/Character.type";
 import { useCharacterDescription } from "../hooks/UseCharacterDescription";
 
 interface CharacterDescriptionProps {
