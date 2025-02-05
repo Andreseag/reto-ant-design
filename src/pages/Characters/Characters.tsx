@@ -1,5 +1,8 @@
-import { Breadcrumb, Layout, theme } from "antd";
+import { Layout, theme } from "antd";
 import ListCharacters from "../../components/ListCharacters";
+import { Typography } from "antd";
+
+const { Title } = Typography;
 
 const { Content } = Layout;
 
@@ -11,9 +14,7 @@ const Admin: React.FC = () => {
   return (
     <Layout>
       <Content style={{ padding: "0 48px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Personajes</Breadcrumb.Item>
-        </Breadcrumb>
+        <Title>Personajes</Title>
         <div
           style={{
             padding: 24,

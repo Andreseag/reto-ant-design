@@ -1,5 +1,4 @@
-// create custom hook to fetch characters
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import md5 from "crypto-js/md5";
 import Swal from "sweetalert2";
 
@@ -27,7 +26,6 @@ export const useCharacters = () => {
         confirmButtonText: "Cerrar",
       });
     }
-
     setLoading(false);
   };
 
@@ -35,5 +33,5 @@ export const useCharacters = () => {
     fetchCharacters();
   }, []);
 
-  return { characters, loading };
+  return { characters, loadingCharacters: loading };
 };
