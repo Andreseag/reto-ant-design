@@ -8,7 +8,6 @@ export const useCharacters = () => {
 
   const PRIVATE_KEY = import.meta.env.VITE_PRIVATE_KEY;
   const PUBLIC_KEY = import.meta.env.VITE_PUBLIC_KEY;
-  console.log(PRIVATE_KEY, PUBLIC_KEY);
 
   const fetchCharacters = async () => {
     const ts = new Date().getTime();
