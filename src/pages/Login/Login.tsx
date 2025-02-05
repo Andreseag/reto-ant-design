@@ -1,14 +1,16 @@
 import Swal from "sweetalert2";
 import { Button, Checkbox, Form, Grid, Input, theme, Typography } from "antd";
+const { useBreakpoint } = Grid;
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-
+import { useRef } from "react";
+import { useCaptcha } from "../../hooks/useCaptcha";
+import { validateUser } from "../../utils/user";
 const { useToken } = theme;
-const { useBreakpoint } = Grid;
 const { Text, Title, Link } = Typography;
 
-const ADMIN_PERMISSION_EMAIL = "admin@admin.com";
-const ADMIN_PERMISSION_PASSWORD = "Admin";
+const SITE_KEY = import.meta.env.VITE_SITE_KEY;
 
 interface loginData {
   email: string;
@@ -18,12 +20,22 @@ interface loginData {
 export function Login() {
   const { token } = useToken();
   const screens = useBreakpoint();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const { handleCaptchaChange, isCaptchaVerified } = useCaptcha();
 
   const onFinish = (values: loginData) => {
-    if (
-      values.email === ADMIN_PERMISSION_EMAIL &&
-      values.password === ADMIN_PERMISSION_PASSWORD
-    ) {
+    if (!isCaptchaVerified) {
+      Swal.fire({
+        title: "Error!",
+        text: "Por favor, verifica que no eres un robot",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+      return;
+    }
+
+    if (validateUser(values.email, values.password)) {
       Swal.fire({
         title: "Bienvenido!",
         text: "Has iniciado sesión correctamente",
@@ -164,6 +176,11 @@ export function Login() {
                 placeholder="Contraseña"
               />
             </Form.Item>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey={SITE_KEY}
+              onChange={handleCaptchaChange}
+            />
             <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox>Recordarme</Checkbox>
