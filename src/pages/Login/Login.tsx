@@ -15,7 +15,7 @@ interface loginData {
   password: string;
   remember: boolean;
 }
-export default function Login() {
+export function Login() {
   const { token } = useToken();
   const screens = useBreakpoint();
 
