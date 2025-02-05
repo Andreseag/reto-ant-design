@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { Button, Checkbox, Form, Grid, Input, theme, Typography } from "antd";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
@@ -6,21 +7,37 @@ const { useToken } = theme;
 const { useBreakpoint } = Grid;
 const { Text, Title, Link } = Typography;
 
+const ADMIN_PERMISSION_EMAIL = "admin@admin.com";
+const ADMIN_PERMISSION_PASSWORD = "Admin";
+
+interface loginData {
+  email: string;
+  password: string;
+  remember: boolean;
+}
 export default function Login() {
   const { token } = useToken();
   const screens = useBreakpoint();
 
-  const onFinish = (
-    values:
-      | {
-          email: string;
-          password: string;
-          remember: boolean;
-        }
-      | undefined
-  ) => {
-    console.log(values);
-    console.log("Received values of form: ", values);
+  const onFinish = (values: loginData) => {
+    if (
+      values.email === ADMIN_PERMISSION_EMAIL &&
+      values.password === ADMIN_PERMISSION_PASSWORD
+    ) {
+      Swal.fire({
+        title: "Bienvenido!",
+        text: "Has iniciado sesión correctamente",
+        icon: "success",
+        confirmButtonText: "Cerrar",
+      });
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "Usuario o contraseña incorrectos",
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
+    }
   };
 
   const styles = {
@@ -126,42 +143,42 @@ export default function Login() {
                 {
                   type: "email",
                   required: true,
-                  message: "Please input your Email!",
+                  message: "Por favor ingrese su correo electrónico!",
                 },
               ]}
             >
-              <Input prefix={<MailOutlined />} placeholder="Email" />
+              <Input prefix={<MailOutlined />} placeholder="Correo" />
             </Form.Item>
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Password!",
+                  message: "Por favor ingrese su contraseña!",
                 },
               ]}
             >
               <Input.Password
                 prefix={<LockOutlined />}
                 type="password"
-                placeholder="Password"
+                placeholder="Contraseña"
               />
             </Form.Item>
             <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Remember me</Checkbox>
+                <Checkbox>Recordarme</Checkbox>
               </Form.Item>
               <a style={styles.forgotPassword as any} href="">
-                Forgot password?
+                ¿Olvidaste tu contraseña?
               </a>
             </Form.Item>
             <Form.Item style={{ marginBottom: "0px" }}>
               <Button block={true} type="primary" htmlType="submit">
-                Log in
+                Iniciar sesión
               </Button>
               <div style={styles.footer as any}>
-                <Text style={styles.text}>Don't have an account?</Text>{" "}
-                <Link href="">Sign up now</Link>
+                <Text style={styles.text}>¿No tienes una cuenta? </Text>
+                <Link href="">Registrate ahora</Link>
               </div>
             </Form.Item>
           </Form>
