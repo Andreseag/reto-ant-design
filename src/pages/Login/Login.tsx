@@ -83,7 +83,7 @@ export function Login() {
       fontSize: screens.md ? token.fontSizeHeading2 : token.fontSizeHeading3,
     },
     login: {
-      width: "40%",
+      width: screens.sm && screens.md ? "40%" : "100%",
       display: "flex",
       flexDirection: "column",
       padding: screens.xl ? "140px 80px" : "80px 20px",
