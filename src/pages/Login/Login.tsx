@@ -44,6 +44,9 @@ export function Login() {
         icon: "success",
         confirmButtonText: "Cerrar",
       });
+
+      // Set isAuthenticated local storage to true
+      localStorage.setItem("isAuthenticated", "true");
       // Redirect to characters page
       navigate("/characters");
     } else {
