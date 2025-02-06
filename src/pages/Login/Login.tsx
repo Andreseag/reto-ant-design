@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import { Button, Checkbox, Form, Grid, Input, theme, Typography } from "antd";
 const { useBreakpoint } = Grid;
 import ReCAPTCHA from "react-google-recaptcha";
+import { useNavigate } from "react-router";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { useRef } from "react";
@@ -22,6 +23,7 @@ export function Login() {
   const screens = useBreakpoint();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
+  const navigate = useNavigate();
   const { handleCaptchaChange, isCaptchaVerified } = useCaptcha();
 
   const onFinish = (values: loginData) => {
@@ -42,6 +44,8 @@ export function Login() {
         icon: "success",
         confirmButtonText: "Cerrar",
       });
+      // Redirect to characters page
+      navigate("/characters");
     } else {
       Swal.fire({
         title: "Error!",
